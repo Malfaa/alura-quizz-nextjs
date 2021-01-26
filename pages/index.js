@@ -1,10 +1,13 @@
-import styled from 'styled-components'
-import db from '../db.json'
-import Widget from '../src/components/Widget'
-import Footer from '../src/components/Footer'
-import QuizBackground from '../src/components/QuizBackground'
-import GitHubCorner from '../src/components/GitHubCorner'
-import QuizLogo from '../src/components/QuizLogo'
+import React from 'react';
+import Head from 'next/head';
+import { useRouter } from 'next/router';
+import styled from 'styled-components';
+import db from '../db.json';
+import Widget from '../src/components/Widget';
+import Footer from '../src/components/Footer';
+import QuizBackground from '../src/components/QuizBackground';
+import GitHubCorner from '../src/components/GitHubCorner';
+import QuizLogo from '../src/components/QuizLogo';
 
 export const QuizContainer = styled.div`
   width: 100%;
@@ -18,30 +21,50 @@ export const QuizContainer = styled.div`
 `;
 
 export default function Home() {
-  return(
+  const router = useRouter();
+  const [name, setName] = React.useState('');
+
+  return (
     <QuizBackground backgroundImage={db.bg}>
+      <Head>
+        <title>Alura Quizz</title>
+      </Head>
       <QuizContainer>
-        <QuizLogo/>
+        <QuizLogo />
         <Widget>
           <Widget.Header>
             <h1>Saga Dark Souls Quizz </h1>
           </Widget.Header>
           <Widget.Content>
-            <p>as</p>
+            <form onSubmit={function event(evento) {
+              evento.preventDefault();
+              router.push(`/quizz?name=${name}`);
+            }}
+            >
+              <input
+                placeholder="Nome"
+                onChange={function event(evento) {
+                  setName(evento.target.value);
+                }}
+              />
+              <button type="submit" disabled={name.length === 0}>
+                Jogar
+              </button>
+            </form>
           </Widget.Content>
 
         </Widget>
 
         <Widget>
           <Widget.Content>
-            <p>ola</p>
+            <p>description2</p>
           </Widget.Content>
-        </Widget>
 
-        <Footer/>
-        <GitHubCorner projectUrl='https://github.com/alura-challenges/aluraquiz-base/blob/main/src/components/GitHubCorner/index.js'/>
+        </Widget>
+        <Footer />
+        <GitHubCorner projectUrl="https://github.com/alura-challenges/aluraquiz-base/blob/main/src/components/GitHubCorner/index.js" />
       </QuizContainer>
     </QuizBackground>
 
-  )
+  );
 }

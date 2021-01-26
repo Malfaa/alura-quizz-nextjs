@@ -48,4 +48,11 @@ Widget.Content = styled.div`
   }
 `;
 
+Widget.Button = styled.div`
+margin-bottom: 15px;
+
+  & > *:hover{
+    background-color: #1976d2;
+  }
+`;
 export default Widget;
