@@ -8,6 +8,8 @@ import Footer from '../src/components/Footer';
 import QuizBackground from '../src/components/QuizBackground';
 import GitHubCorner from '../src/components/GitHubCorner';
 import QuizLogo from '../src/components/QuizLogo';
+import Input from '../src/components/Input';
+import Button from '../src/components/Button';
 
 export const QuizContainer = styled.div`
   width: 100%;
@@ -36,20 +38,22 @@ export default function Home() {
             <h1>Saga Dark Souls Quizz </h1>
           </Widget.Header>
           <Widget.Content>
-            <form onSubmit={function event(evento) {
+            <form onSubmit={function (evento) {
               evento.preventDefault();
               router.push(`/quizz?name=${name}`);
             }}
             >
-              <input
-                placeholder="Nome"
-                onChange={function event(evento) {
-                  setName(evento.target.value);
-                }}
+              <Input
+                name="nomeDoUsuario"
+                onChange={(evento) => setName(evento.target.value)}
+                placeholder="Digite seu nome"
+                value={name}
               />
-              <button type="submit" disabled={name.length === 0}>
-                Jogar
-              </button>
+              <Widget.Button>
+                <Button type="submit" disabled={name.length === 0}>
+                  {`Jogar ${name}`}
+                </Button>
+              </Widget.Button>
             </form>
           </Widget.Content>
 
