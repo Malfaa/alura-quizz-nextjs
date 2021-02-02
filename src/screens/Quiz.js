@@ -1,12 +1,14 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
-import db from '../db.json';
-import Widget from '../src/components/Widget';
-import QuizLogo from '../src/components/QuizLogo';
-import QuizBackground from '../src/components/QuizBackground';
-import QuizContainer from '../src/components/QuizContainer';
-import Button from '../src/components/Button';
-import AlternativesForm from '../src/components/AlternativesForm';
+import { userRouter } from 'next/router';
+import db from '../../db.json';
+import Widget from '../components/Widget';
+import QuizLogo from '../components/QuizLogo';
+import QuizBackground from '../components/QuizBackground';
+import QuizContainer from '../components/QuizContainer';
+import Button from '../components/Button';
+import AlternativesForm from '../components/AlternativesForm';
+import IndexHome from '../../pages/index';
 
 function ResultWidget({ results }) {
   return (
@@ -17,18 +19,12 @@ function ResultWidget({ results }) {
 
       <Widget.Content>
         <p>
-          Você acertou
+          {`${IndexHome.name}${' '}, você acertou
+          ${' '}
+          ${results.filter((x) => x).length}
+          ${' '}
+          perguntas`}
           {' '}
-          {/* {results.reduce((somatoriaAtual, resultAtual) => {
-            const isAcerto = resultAtual === true;
-            if (isAcerto) {
-              return somatoriaAtual + 1;
-            }
-            return somatoriaAtual;
-          }, 0)} */}
-          {results.filter((x) => x).length}
-          {' '}
-          perguntas
         </p>
         <ul>
           {results.map((result, index) => (
@@ -144,10 +140,12 @@ function QuestionWidget({
           </Button>
           {isQuestionSubmited && isCorrect && <p>Você Acertou</p>}
           {isQuestionSubmited && !isCorrect && <p>Você Errou</p>}
+          {/*
           <p>
             selectedAlternative:
             {`${selectedAlternative}`}
           </p>
+          */}
         </AlternativesForm>
       </Widget.Content>
     </Widget>
